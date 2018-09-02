@@ -3,25 +3,29 @@ package task06;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Chronometr implements Runnable {
-    private final AtomicInteger sec = new AtomicInteger(0);
+    private static final AtomicInteger sec = new AtomicInteger(0);
+    private Object monitor;
 
-    public int getSec() {
-        return sec.get();
+    public Chronometr(Object monitor) {
+        this.monitor = monitor;
+    }
+
+    static public int getSec() {
+        return sec.intValue();
     }
 
     @Override
     public void run() {
-        while (true) {
-
+        while (Thread.currentThread().isAlive()) {
+            synchronized (monitor) {
             try {
-                Thread.sleep(1000);
+                monitor.wait(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            synchronized (this) {
                 sec.incrementAndGet();
-                this.notifyAll();
-                System.out.println("Прошло " + this.getSec() + " сек");
+                this.monitor.notifyAll();
+                System.out.println("Прошло " + sec.intValue() + " сек");
             }
 
         }
