@@ -13,11 +13,15 @@ public class MathBoxInvocationHandler implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         Class clazz = mathBox.getClass();
-        if (mathBox.getClass().getAnnotation(ClearData.class) != null){
-
+        Method[] methods = clazz.getMethods();
+        for (Method m : methods) {
+            if (((m.getAnnotation(ClearData.class)) != null) && m.equals(method)) {
+                System.out.println("++++++++++++++++++++++++++" + clazz.getName());
+            }
         }
-        if (mathBox.getClass().getAnnotation(Logged.class) != null){
-            System.out.println("We call method: " + method.getName());
+
+        if (clazz.getClass().getAnnotation(Logged.class) != null) {
+            LoggList.logList.add("We call method: " + method.getName());
             return method.invoke(mathBox, args);
         } else {
             return method.invoke(mathBox, args);

@@ -1,6 +1,8 @@
 package task07;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Proxy;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -12,15 +14,20 @@ public class Main {
                 Proxy.newProxyInstance(MathBoxInvocationHandler.class.getClassLoader(),
                         new Class[]{MathBoxInterface.class}, mathBoxInvoce);
 
+
         int div = 3;
-        System.out.println("1. Отсортированный массив: " + mathBoxProxy);
+        LoggList.logList.add("1. Отсортированный массив: " + mathBoxProxy);
 
-        System.out.println("2. Cумма всех элементов коллекции: " + mathBoxProxy.summator());
+        LoggList.logList.add("2. Cумма всех элементов коллекции: " + mathBoxProxy.summator());
 
-        System.out.println("3. Mетод splitter, возвращающий результат деления элементов коллекции на "
+        LoggList.logList.add("3. Mетод splitter, возвращающий результат деления элементов коллекции на "
                 + div + " :" + mathBoxProxy.splitter(div));
 
         mathBoxProxy.remove(3);
-        System.out.println("4. Удаление элемента коллекции '3': " + mathBoxProxy);
+        LoggList.logList.add("4. Удаление элемента коллекции '3': " + mathBoxProxy);
+
+        for (String s: LoggList.logList){
+            System.out.println(s);
+        }
     }
 }

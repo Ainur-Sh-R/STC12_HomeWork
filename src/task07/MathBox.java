@@ -59,6 +59,7 @@ public class MathBox implements MathBoxInterface {
      * в коллекции, удаляет его
      * @param n значение возможного элемента коллеции
      */
+    @ClearData
     @Override
     public void remove(Integer n) {
         if (setInt.contains(n)) {
