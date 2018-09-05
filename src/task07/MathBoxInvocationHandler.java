@@ -14,17 +14,21 @@ public class MathBoxInvocationHandler implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         Class clazz = mathBox.getClass();
         Method[] methods = clazz.getMethods();
-        for (Method m : methods) {
-            if (((m.getAnnotation(ClearData.class)) != null) && m.equals(method)) {
-                System.out.println("++++++++++++++++++++++++++" + clazz.getName());
-            }
-        }
+
+
+        Object result;
 
         if (clazz.getClass().getAnnotation(Logged.class) != null) {
             LoggList.logList.add("We call method: " + method.getName());
-            return method.invoke(mathBox, args);
+            result =  method.invoke(mathBox, args);
         } else {
-            return method.invoke(mathBox, args);
+            result = method.invoke(mathBox, args);
         }
+        for (Method m : methods) {
+            if (((m.getAnnotation(ClearData.class)) != null) && m.getName().equals(method.getName())) {
+                LoggList.logList.clear();
+            }
+        }
+        return result;
     }
 }

@@ -26,7 +26,7 @@ public class Main {
         mathBoxProxy.remove(3);
         LoggList.logList.add("4. Удаление элемента коллекции '3': " + mathBoxProxy);
 
-        for (String s: LoggList.logList){
+        for (String s : LoggList.logList) {
             System.out.println(s);
         }
     }
