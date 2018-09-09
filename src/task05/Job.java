@@ -1,6 +1,8 @@
 package task05;
 
-public enum Job {
+import java.io.Serializable;
+
+public enum Job implements Serializable {
     WORKER("worker"), PROGRAMMER("programmer"), BUILDER("builder");
     private final String name;
 
@@ -11,6 +13,4 @@ public enum Job {
     public String getName() {
         return name;
     }
-
-
 }

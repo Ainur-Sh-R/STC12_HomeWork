@@ -1,8 +1,9 @@
 package task05;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Employee {
+public class Employee implements Serializable {
     private final String name;
     private int age;
     private int salary;
@@ -54,5 +55,15 @@ public class Employee {
     @Override
     public int hashCode() {
         return Objects.hash(name);
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", salary=" + salary +
+                ", job=" + job +
+                '}';
     }
 }
